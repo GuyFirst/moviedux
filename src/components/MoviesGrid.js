@@ -1,28 +1,39 @@
-import React, {useState, useEffect} from "react";
-import '../styles.css';
+import React, { useState, useEffect } from "react";
+import "../styles.css";
 import MovieCard from "./MovieCard";
 
-export default function MoviesGrid(){
-    
-    const [movies, setMovies] = useState([]);
+export default function MoviesGrid() {
+  const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    fetch("movies.json")
+      .then((response) => response.json())
+      .then((data) => setMovies(data));
+  }, []);
 
-     useEffect(() => {
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-        fetch("movies.json")
-        .then(response => response.json())
-        .then(data => setMovies(data))
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-
-     }, []);
-
-    return (
-        <div className ='movies-grid'>
-        {
-            movies.map((movie) => (
-              <MovieCard movie={movie} key = {movie.id}></MovieCard>
-            ))
-        }
-        </div>
-    );
+  return (
+    <div>
+      <input
+        type="text"
+        className="search-input"
+        placeHolder="search movies..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      <div className="movies-grid">
+        {filteredMovies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id}></MovieCard>
+        ))}
+      </div>
+    </div>
+  );
 }
