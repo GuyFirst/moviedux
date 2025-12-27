@@ -249,3 +249,24 @@ input:checked + .slider:before {
 input:checked + .slider {
   background-color: #FFA100;
 }
+
+
+/* My Added CSS*/
+.no-results {
+  grid-column: 1 / -1; /* span all grid columns */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.no-results-img {
+  width: 220px;
+  max-width: 70%;
+  opacity: 0.9;
+  border-radius: 12px;
+}
+
