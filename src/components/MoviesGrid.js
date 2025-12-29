@@ -3,7 +3,7 @@ import "../styles.css";
 import MovieCard from "./MovieCard";
 import { RATINGS } from "../constants/ratings";
 
-export default function MoviesGrid({movies}) {
+export default function MoviesGrid({movies, watchlist, toggleWatchlist}) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [genre, setGenre] = useState("All Genres");
@@ -109,7 +109,12 @@ export default function MoviesGrid({movies}) {
           </div>
         ) : (
           filteredMovies.map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
+            <MovieCard 
+              movie={movie} 
+              key={movie.id} 
+              toggleWatchlist={toggleWatchlist}
+              isWatchlisted = {watchlist.includes(movie.id)}
+              ></MovieCard>          
           ))
         )}
       </div>
